@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAPORI DI SICILIA - Premium Italian Specialty Foods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fefefe;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #dc2626, #facc15);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        nav a:hover, nav a.active {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Page Content */
+        .page {
+            display: none;
+            min-height: calc(100vh - 140px);
+            padding: 40px 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(220, 38, 38, 0.1), rgba(250, 204, 21, 0.1));
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 60px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            color: #dc2626;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-item svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #dc2626;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #facc15;
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #dc2626, #facc15);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .brand {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .usage {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #555;
+            border-left: 4px solid #facc15;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #dc2626;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Page */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            color: #dc2626;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #facc15;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #dc2626, #facc15);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Location Page */
+        .location-content {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .map-placeholder {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            height: 400px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            border: 2px dashed #dc2626;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <div>
+                        <h1>SAPORI DI SICILIA</h1>
+                        <div class="tagline">Premium Italian Specialty Foods</div>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+                        <li><a href="#" onclick="showPage('catalog')" class="nav-link">Catalog</a></li>
+                        <li><a href="#" onclick="showPage('contact')" class="nav-link">Contact</a></li>
+                        <li><a href="#" onclick="showPage('location')" class="nav-link">Location</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <div class="container">
+                    <h2>Authentic Italian Excellence</h2>
+                    <p>For over a decade, SAPORI DI SICILIA has been Morocco's premier destination for authentic Italian specialty foods. We import the finest products directly from Italy's most respected producers.</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#dc2626">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <div class="stat-number">15+</div>
+                            <div>Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#dc2626">
+                                <path d="M19 7h-1V6a4 4 0 0 0-8 0v1H9a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10.91 16L8 13.09l1.41-1.41L10.91 13L16.59 7.41L18 8.82 10.91 16z"/>
+                            </svg>
+                            <div class="stat-number">500+</div>
+                            <div>Premium Products</div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#dc2626">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <div class="stat-number">1000+</div>
+                            <div>Happy Customers</div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#dc2626">
+                                <path d="M12 2l2.09 6.26L20 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l5.91-1.01L12 2z"/>
+                            </svg>
+                            <div class="stat-number">50+</div>
+                            <div>Italian Brands</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Catalog Page -->
+        <div id="catalog" class="page">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; color: #dc2626; margin-bottom: 20px;">Our Premium Catalog</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 40px;">Discover our extensive collection of authentic Italian specialty foods, imported directly from Italy's finest producers.</p>
+                
+                <div class="categories">
+                    <button class="category-btn active" onclick="filterProducts('all')">All Products</button>
+                    <button class="category-btn" onclick="filterProducts('pasta')">Pasta</button>
+                    <button class="category-btn" onclick="filterProducts('sauces')">Sauces</button>
+                    <button class="category-btn" onclick="filterProducts('preserves')">Preserves</button>
+                    <button class="category-btn" onclick="filterProducts('olives')">Olives</button>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; color: #dc2626; margin-bottom: 20px;">Contact Us</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 40px;">Get in touch with our team for orders, inquiries, or partnerships.</p>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3 style="color: #dc2626; margin-bottom: 30px; font-size: 1.5rem;">Get In Touch</h3>
+                        
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                            </svg>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +212 5XX-XXXXXX<br>
+                                +212 6XX-XXXXXX
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@saporidisicilia.ma<br>
+                                orders@saporidisicilia.ma
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <div>
+                                <strong>Address</strong><br>
+                                Quartier Industriel<br>
+                                Inezgane, Souss-Massa<br>
+                                Morocco
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            <div>
+                                <strong>Business Hours</strong><br>
+                                Mon-Fri: 8:00 AM - 6:00 PM<br>
+                                Sat: 8:00 AM - 2:00 PM<br>
+                                Sun: Closed
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h3 style="color: #dc2626; margin-bottom: 30px; font-size: 1.5rem;">Send Message</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Page -->
+        <div id="location" class="page">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; color: #dc2626; margin-bottom: 20px;">Our Location</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: #666; margin-bottom: 40px;">Visit our warehouse and showroom in Inezgane, Souss-Massa region.</p>
+                
+                <div class="location-content">
+                    <div class="map-placeholder">
+                        <div style="text-align: center; color: #666;">
+                            <svg style="width: 60px; height: 60px; margin-bottom: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                            <h3>SAPORI DI SICILIA</h3>
+                            <p>Quartier Industriel, Inezgane<br>Souss-Massa, Morocco</p>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin-top: 40px;">
+                        <h3 style="color: #dc2626; margin-bottom: 20px; text-align: center;">Directions</h3>
+                        <p style="margin-bottom: 20px; text-align: center;">We are conveniently located in the industrial quarter of Inezgane, easily accessible from major highways.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+                            <div style="text-align: center;">
+                                <svg style="width: 40px; height: 40px; color: #dc2626; margin-bottom: 10px;" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                                </svg>
+                                <h4>By Car</h4>
+                                <p>Free parking available on-site</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg style="width: 40px; height: 40px; color: #dc2626; margin-bottom: 10px;" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                                <h4>GPS Coordinates</h4>
+                                <p>30.3526° N, 9.5370° W</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SAPORI DI SICILIA. All rights reserved. | Premium Italian Specialty Foods in Morocco</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data based on the catalog
+        const products = [
+            {
+                name: "Nidi fi fettucce",
+                brand: "Fratelli Gallo",
+                price: "34,56 dh",
+                format: "500g",
+                colissage: "X 12 unité",
+                category: "pasta",
+                usage: "Pâtes au blé sicilien, pour la pré-cuisson nous recommandons une demi-cuisson dans l'eau bouillante, et au moment de servir, blanchir pendant deux minutes suivi d'un crémage avec la sauce désirée."
+            },
+            {
+                name: "Anelloni",
+                brand: "Fratelli Gallo",
+                price: "30,24 dh",
+                format: "1KG",
+                colissage: "X 12 unité",
+                category: "pasta",
+                usage: "Pâtes au blé sicilien, idéales pour la cuisson au four et pour réaliser des pâtes au four."
+            },
+            {
+                name: "Spaghetti",
+                brand: "Armando",
+                price: "18,36 dh",
+                format: "500g",
+                colissage: "X 24 unité",
+                category: "pasta",
+                usage: "Pâtes de blé dur étirées au bronze, excellentes pour ceux qui souhaitent servir des pâtes d'excellente qualité."
+            },
+            {
+                name: "Penne",
+                brand: "Armando",
+                price: "18,36 dh",
+                format: "500g",
+                colissage: "X 24 unité",
+                category: "pasta",
+                usage: "Pâtes de blé dur étirées au bronze, excellentes pour ceux qui souhaitent servir des pâtes d'excellente qualité."
+            },
+            {
+                name: "Fusilli Tricolore",
+                brand: "Armando",
+                price: "18,36 dh",
+                format: "500g",
+                colissage: "X 24 unité",
+                category: "pasta",
+                usage: "Pâtes de blé dur tréfilées au bronze, aux saveurs de tomates et d'épinards avec la couleur typiquement italienne."
+            },
+            {
+                name: "Lasagna",
+                brand: "Armando",
+                price: "36,72 dh",
+                format: "500g",
+                colissage: "X 12 unité",
+                category: "pasta",
+                usage: "Pâtes pour réaliser les lasagnes typiques italiennes, ces pâtes n'ont pas besoin de pré-cuisson."
+            },
+            {
+                name: "Sugo al basilico",
+                brand: "D'Amico",
+                price: "15,12 dh",
+                format: "280g",
+                colissage: "X 8 unité",
+                category: "sauces",
+                usage: "Sauce prête à l'emploi. Idéal pour un déjeuner rapide. Mélangez-le simplement avec les pâtes."
+            },
+            {
+                name: "Pesto alla genovese",
+                brand: "Robo",
+                price: "54,00 dh",
+                format: "500g",
+                colissage: "X 6 unité",
+                category: "sauces",
+                usage: "Sauce prête à l'emploi. Idéal pour un déjeuner rapide. Mélangez-le simplement avec les pâtes."
+            },
+            {
+                name: "Salsa tartufata",
+                brand: "Robo",
+                price: "226,80 dh",
+                format: "500g",
+                colissage: "X 6 unité",
+                category: "sauces",
+                usage: "Sauce aux truffes, idéale pour enrichir vos plats de la saveur unique des truffes."
+            },
+            {
+                name: "Cuori di carciofo",
+                brand: "D'Amico",
+                price: "43,20 dh",
+                format: "280g",
+                colissage: "X 8 unité",
+                category: "preserves",
+                usage: "Coeur d'artichauts idéales à manger en apéritif ou en salade. Idéal également pour les pizzas."
+            },
+            {
+                name: "Olive di Castelvetrano",
+                brand: "D'Amico",
+                price: "36,72 dh",
+                format: "280g",
+                colissage: "X 8 unité",
+                category: "olives",
+                usage: "Olives douces dénoyautées, produit typique de Castelvetrano, une olive douce et délicate."
+            },
+            {
+                name: "Olive bella di Cerignola",
+                brand: "D'Amico",
+                price: "91,80 dh",
+                format: "730g",
+                colissage: "X 6 unité",
+                category: "olives",
+                usage: "Olives typiques de Cerignola, caractérisées par leur grande taille. Idéales pour salades."
+            },
+            {
+                name: "Dolcecrema di pistacchio",
+                brand: "D'Amico",
+                price: "205,20 dh",
+                format: "500g",
+                colissage: "X 6 unité",
+                category: "preserves",
+                usage: "Crème de pistache, idéale pour préparer des desserts et également comme pâte à tartiner."
+            },
+            {
+                name: "Filetti di acciughe",
+                brand: "Mari Blue",
+                price: "110,16 dh",
+                format: "720g",
+                colissage: "X 6 unité",
+                category: "preserves",
+                usage: "Filets d'anchois à l'huile, idéaux pour la préparation de pizzas et sauce pour pâtes."
+            },
+            {
+                name: "Capperi",
+                brand: "Mari Blue",
+                price: "37,80 dh",
+                format: "320g",
+                colissage: "X 6 unité",
+                category: "preserves",
+                usage: "Câpres au naturel, idéales pour enrichir le goût de vos plats à base de poisson."
+            }
+        ];
+
+        function generateProductCards(filteredProducts) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-header">
+                        <h3>${product.name}</h3>
+                        <div class="brand">${product.brand} - Italia</div>
+                    </div>
+                    <div class="product-content">
+                        <div class="price">${product.price}</div>
+                        <div class="product-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Format:</span>
+                                <span>${product.format}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Colissage:</span>
+                                <span>${product.colissage}</span>
+                            </div>
+                        </div>
+                        <div class="usage">
+                            <strong>Conseil d'utilisation:</strong><br>
+                            ${product.usage}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProducts(category) {
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter products
+            const filteredProducts = category === 'all' 
+                ? products 
+                : products.filter(product => product.category === category);
+            
+            generateProductCards(filteredProducts);
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Load products if catalog page is shown
+            if (pageId === 'catalog') {
+                generateProductCards(products);
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            generateProductCards(products);
+        });
+    </script>
+</body>
+</html>
