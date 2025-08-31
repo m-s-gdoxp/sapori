@@ -1,0 +1,10 @@
+category,name,price,is_spicy,is_vegan,allergens,description
+Starters,Harira royale,45,false,false,gluten,"Soupe marocaine aux herbes fraîches"
+Starters,Briouates mix,65,true,false,"gluten;nuts","Fromage, poulet, légumes"
+Mains,Tajine de boeuf pruneaux,120,false,false,"sesame;almonds","Amandes, sésame"
+Mains,Couscous royal,140,false,false,,"Agneau, merguez, légumes de saison"
+Desserts,Pastilla au lait,40,false,false,,
+Desserts,Assortiment pâtisseries marocaines,55,false,false,"nuts;gluten",
+Drinks,Thé à la menthe,20,false,true,,
+Drinks,Soda,25,false,true,,
+Drinks,Mocktail Maison,45,false,true,,
