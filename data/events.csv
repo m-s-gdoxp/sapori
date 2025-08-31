@@ -1,0 +1,4 @@
+title,date,start_time,end_time,band_name,ticket_price,min_spend,poster_url,is_recurring
+GNAWA FUSION NIGHT,2025-10-03,21:00,23:30,Sahara Vibes,120,200,/media/gnawa-fusion-night.png,false
+KARAOKE FRIDAY,2025-09-12,21:00,23:30,DJ Nabil,0,150,/media/karaoke-friday.png,true
+KIDS MAGIC SUNDAY,2025-09-14,16:00,18:00,Magician Youssef,80,0,/media/kids-magic-sunday.png,true
